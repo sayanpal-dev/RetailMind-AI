@@ -1,0 +1,31 @@
+RetailMind Customer Support Policy
+
+Returns:
+Products may be returned within 7 calendar days of delivery.
+
+Return Conditions:
+The product must be unused and returned with the original packaging,
+invoice, tags and accessories.
+
+Damaged Products:
+Customers must report damaged or defective products within 48 hours
+of delivery.
+
+Refunds:
+Approved refunds are returned to the original payment method within
+5 to 7 business days after the returned product passes inspection.
+
+Exchanges:
+Size exchanges depend on stock availability.
+
+Cancellation:
+Orders may be cancelled before shipment. An order cannot be cancelled
+after shipment.
+
+Delivery:
+Standard delivery normally takes 3 to 7 business days.
+
+Unsupported Questions:
+If the available product information or policy does not contain the
+answer, the assistant must say that the information is unavailable
+and recommend contacting a human support representative.

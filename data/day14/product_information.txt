@@ -1,0 +1,27 @@
+RetailMind Product Information
+
+Product Name: Urban Runner Shoes
+
+Category: Footwear
+
+Description:
+Urban Runner Shoes are lightweight everyday running shoes designed
+for walking, jogging and casual use.
+
+Available Colours:
+Black, Navy Blue and White.
+
+Available Sizes:
+UK 6, UK 7, UK 8, UK 9 and UK 10.
+
+Material:
+Breathable mesh upper with a rubber sole.
+
+Price:
+INR 2,499.
+
+Warranty:
+Manufacturing defects are covered for 90 days from delivery.
+
+Care Instructions:
+Clean with a soft damp cloth. Do not machine wash.
