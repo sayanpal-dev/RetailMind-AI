@@ -603,3 +603,293 @@ Conclusion
 Day 11 extends RetailMind AI with generative modelling.
 
 Synthetic augmentation is intended to improve representation of under-represented product categories. Generated samples are reviewed before being incorporated into classifier training because synthetic data quality directly affects downstream classification performance.
+Day 12: Classical Review Sentiment Analysis
+Objective
+Build a classical NLP baseline that classifies Amazon product reviews as positive or negative and identifies informative sentiment terms.
+
+Text Processing
+Customer reviews are processed using:
+
+Lowercasing
+URL removal
+HTML removal
+Noise and punctuation removal
+NLTK tokenization
+Stopword removal
+Porter stemming
+Negation terms such as not, no and never are preserved because they are important for sentiment.
+
+Feature Extraction
+TF-IDF converts the cleaned review text into numeric features.
+
+Both unigrams and bigrams are included so that the model can learn individual words and short phrases.
+
+Model
+Logistic Regression is used as the classical sentiment baseline.
+
+Class balancing is enabled to reduce the effect of unequal positive and negative review counts.
+
+Evaluation
+The model is evaluated using:
+
+Accuracy
+Precision
+Recall
+F1-score
+Confusion matrix
+Results are stored in:
+
+models/day12_results.csv
+
+Product Insights
+The strongest positive and negative model terms are extracted from the Logistic Regression coefficients.
+
+They are stored in:
+
+models/day12_informative_terms.csv
+
+Saved Pipeline
+The complete cleaning, TF-IDF and classification pipeline is saved as:
+
+models/day12_sentiment_pipeline.joblib
+
+Running Day 12
+Train and evaluate the pipeline:
+
+python src/train_sentiment.py
+
+Predict one review:
+
+python src/predict_sentiment.py "Excellent product and great value"
+Day 13: Transformers and BERT Text Intelligence
+Objective
+Upgrade the Day 12 classical sentiment pipeline using a pretrained Transformer model and add BERT-based support-ticket routing.
+
+Sentiment Classification
+A pretrained DistilBERT tokenizer converts Amazon reviews into:
+
+Input token IDs
+Attention masks
+Fixed-length model inputs
+DistilBERT is fine-tuned to classify reviews as:
+
+Negative
+Positive
+The model is compared against the Day 12 TF-IDF and Logistic Regression baseline.
+
+Comparison results are stored in:
+
+models/day13_baseline_comparison.csv
+
+Support-Ticket Routing
+Review and support text is organized into four routing categories:
+
+Delivery
+Refund
+Product Issue
+General Feedback
+The initial ticket categories use weak keyword-based labels because a separately labeled support-ticket dataset is not available.
+
+A second DistilBERT classifier is fine-tuned for ticket routing.
+
+Per-class precision, recall and F1 results are stored in:
+
+models/day13_ticket_results.csv
+
+Why BERT
+Unlike TF-IDF, BERT uses contextual token representations.
+
+This allows text meaning to depend on surrounding words rather than only word frequency.
+
+BERT requires more computation and storage than the classical baseline, so replacement is justified only when the evaluation shows a meaningful performance improvement.
+
+Running Day 13
+Train the sentiment classifier:
+
+python src/train_bert_sentiment.py
+
+Train the ticket router:
+
+python src/train_bert_ticket_router.py
+
+Predict sentiment:
+
+python src/predict_day13.py sentiment "Excellent product"
+
+Predict the support queue:
+
+python src/predict_day13.py ticket "My package is late"
+Day 14: LLM Review Summaries and Support Assistant
+Objective
+Add LLM-powered review summarization and conversational customer support to RetailMind AI.
+
+Review Summarization
+Customer reviews are processed in small batches.
+
+The LLM identifies:
+
+Overall sentiment
+Common positive themes
+Common negative themes
+Recurring product or service problems
+Recommended business actions
+The batch summaries are combined into one concise product-level summary.
+
+Generated outputs:
+
+outputs/day14/review_summary.txt
+outputs/day14/summary_details.csv
+Customer-Support Assistant
+The RetailMind support assistant answers questions using:
+
+Product information
+Return and refund policy
+Delivery information
+Conversation history
+The assistant is instructed not to invent information.
+
+If the supplied product or policy context does not contain the answer, the assistant recommends human support.
+
+Security
+The Gemini API key is read from the GEMINI_API_KEY environment variable.
+
+The API key is never hard-coded and the .env file is excluded from GitHub.
+
+Running Day 14
+Summarize customer reviews:
+
+python src/day14_summarize_reviews.py
+
+Start the support chatbot:
+
+python src/day14_support_chatbot.py
+
+Run both modules:
+
+python src/day14_run.py
+Day 15: Stable Diffusion Marketing Images
+Objective
+Generate on-brand retail and product marketing visuals using a pretrained Stable Diffusion pipeline.
+
+Input
+The creative module builds prompts from product metadata:
+
+Product name
+Category
+Visual style
+Setting
+Brand colors
+Campaign
+Prompt Template
+Product metadata is converted into a structured commercial photography prompt.
+
+Negative prompts are used to discourage:
+
+Low-quality output
+Blur and distortion
+Duplicate products
+Watermarks
+Unreadable text
+Cluttered backgrounds
+Reproducibility
+Each approved asset records:
+
+Prompt
+Negative prompt
+Seed
+Guidance scale
+Inference steps
+Output path
+The fixed seed supports repeatable campaign generation.
+
+Model
+The module uses a pretrained Stable Diffusion v1.5 pipeline through Hugging Face Diffusers.
+
+No diffusion model is trained from scratch.
+
+Generated Files
+models/day15_prompt_library.csv
+models/day15_generation_results.csv
+outputs/day15_marketing/
+Running Day 15
+Create the prompt library:
+
+python src/day15_prompt_library.py
+
+Generate campaign assets:
+
+python src/day15_generate_campaign.py
+
+Run the complete workflow:
+
+python src/day15_run.py
+
+Retail Use Cases
+Product campaign concepts
+Social-media creatives
+Seasonal product imagery
+Marketing mockups
+Rapid creative experimentation
+Generated visuals require human review before public campaign use, especially for product accuracy, text, logos and brand compliance.
+Day 16: Image Variations and Promotional Video
+Objective
+Extend the RetailMind creative module with controlled image-to-image product variations and short promotional video generation.
+
+Input
+The Day 16 module uses a real catalog product image as the initial image.
+
+The image is resized and placed on a 512 × 512 background before it is passed to the image-to-image diffusion pipeline.
+
+Image-to-Image Generation
+Stable Diffusion img2img generates on-brand product variations while remaining conditioned on the input catalog image.
+
+Three configurations are tested:
+
+Low strength for high product fidelity
+Medium strength for a balanced variation
+High strength for stronger creative reinterpretation
+Guidance scale is also varied to test how strongly each image follows the marketing prompt.
+
+Reproducibility
+Each generated image records:
+
+Prompt
+Negative prompt
+Strength
+Guidance scale
+Seed
+Inference steps
+Output path
+Asset Curation
+Generated variations are manually reviewed for:
+
+Product fidelity
+Realistic shape and materials
+Brand consistency
+Background quality
+Absence of unwanted text or watermarks
+Poor variations are removed before video creation.
+
+Promotional Video
+The shortlisted images are assembled into a short MP4 clip using:
+
+Subtle zoom animation
+Crossfade transitions
+H.264 video encoding
+512 × 512 output resolution
+Generated Files
+models/day16_variation_results.csv
+outputs/day16/variations/
+outputs/day16/retailmind_promo.mp4
+Running Day 16
+Generate product variations:
+
+python src/day16_generate_variations.py
+
+Create the promotional video:
+
+python src/day16_create_video.py
+
+Run the complete workflow:
+
+python src/day16_run.py
