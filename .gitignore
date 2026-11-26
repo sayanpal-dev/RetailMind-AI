@@ -33,3 +33,18 @@ runs/
 data/day9/train.csv
 data/day11_rare_category/
 data/day11_augmented_category/
+data/day12/amazon_reviews.csv
+models/day13_bert_sentiment/model.safetensors
+models/day13_ticket_router/model.safetensors
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Hugging Face cache, if created locally
+.cache/
+huggingface/
+
+# Do not upload downloaded model checkpoints
+*.ckpt
+*.safetensors
