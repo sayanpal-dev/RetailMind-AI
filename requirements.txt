@@ -6,3 +6,14 @@ xgboost
 tensorflow>=2.22
 matplotlib
 ultralytics
+google-genai
+python-dotenv
+diffusers
+transformers
+accelerate
+safetensors
+torch
+Pillow
+imageio
+imageio-ffmpeg
+
